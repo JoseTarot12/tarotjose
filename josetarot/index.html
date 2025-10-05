@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert Jose Tarot - Consultas Profesionales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-dark: #2d1b69;
+            --purple-medium: #4a2c8c;
+            --purple-light: #7e57c2;
+            --blue-dark: #0f1a30;
+            --blue-medium: #1a2b4d;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #075E54;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--blue-dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        .logo h1, .section-title h2 {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        /* Animación de cartas cayendo - EN TODA LA PANTALLA */
+        .falling-cards {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%; /* Ahora ocupa toda la pantalla */
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .falling-card {
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(212, 175, 55, 0.15); /* Más transparente para no interferir */
+            top: -50px;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: 1; /* Solo una iteración */
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Header Diagonal Mejorado */
+        .diagonal-header {
+            height: 100vh;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagonal-container {
+            display: flex;
+            height: 100%;
+            position: relative;
+        }
+
+        .header-messages {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-messages::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100px;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+            transform: skewX(-15deg);
+            z-index: 1;
+        }
+
+        .header-carousel {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-light));
+            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .carousel-images {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-image {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background-color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        .hero-content h2 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: var(--gray-light);
+            font-family: 'Playfair Display', serif;
+            max-width: 90%;
+        }
+
+        .header-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .feature i {
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
+
+        /* Header y Navegación */
+        header {
+            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+        }
+
+        .logo i {
+            color: var(--gold);
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Sección Sobre Mí */
+        .about {
+            padding: 5rem 2rem;
+            background-color: var(--blue-medium);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            display: inline-block;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--purple-light), var(--gold));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Sección de Cartas de Tarot - Carrusel */
+        .tarot-cards {
+            padding: 5rem 2rem;
+        }
+
+        .cards-carousel-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .cards-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .cards-page {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .card-item {
+            background: linear-gradient(135deg, var(--blue-medium), var(--purple-medium));
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-light));
+        }
+
+        .card-header i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-family: 'Cinzel', serif;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body p {
+            margin-bottom: 1rem;
+            color: var(--gray-light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .keyword {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .carousel-btn {
+            background: var(--purple-light);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .carousel-btn:hover {
+            background: var(--gold);
+            transform: scale(1.1);
+        }
+
+        /* Servicios Actualizados */
+        .services {
+            padding: 5rem 2rem;
+            background-color: var(--blue-medium);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--gold-light);
+            font-family: 'Cinzel', serif;
+        }
+
+        .service-card p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Testimonios */
+        .testimonials {
+            padding: 5rem 2rem;
+            background-color: var(--purple-dark);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--gold);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--purple-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .author-info h4 {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Contacto WhatsApp Moderno */
+        .contact {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--whatsapp-dark), #128C7E);
+        }
+
+        .whatsapp-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .whatsapp-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .whatsapp-info h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-info p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .whatsapp-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .whatsapp-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .whatsapp-feature i {
+            color: var(--white);
+            font-size: 1.3rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .whatsapp-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .whatsapp-icon {
+            font-size: 4rem;
+            color: var(--whatsapp-green);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code span {
+            color: #666;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .whatsapp-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--whatsapp-dark);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: var(--whatsapp-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
+            background: #20b858;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--blue-dark);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-light));
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+        }
+
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Botón general */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--purple-medium), var(--purple-light));
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(126, 87, 194, 0.4);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(126, 87, 194, 0.6);
+            background: linear-gradient(135deg, var(--purple-light), var(--purple-medium));
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .diagonal-header {
+                height: auto;
+            }
+            
+            .diagonal-container {
+                flex-direction: column;
+            }
+            
+            .header-carousel {
+                clip-path: none;
+                height: 50vh;
+            }
+            
+            .header-messages::after {
+                display: none;
+            }
+            
+            .cards-page {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .whatsapp-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cards-page {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .btn {
+                padding: 10px 25px;
+            }
+            
+            .about, .services, .testimonials, .contact, .tarot-cards {
+                padding: 3rem 1rem;
+            }
+            
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .qr-code {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="falling-cards" id="fallingCards"></div>
+
+    <!-- Header y Navegación -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-star-and-crescent"></i>
+                <h1>RoberTarot</h1>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre-mi">Sobre Mí</a></li>
+                <li><a href="#cartas">Cartas de Tarot</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="diagonal-header" id="inicio">
+        <div class="diagonal-container">
+            <div class="header-messages">
+                <div class="hero-content">
+                    <h2>Descubre tu destino con las cartas del tarot</h2>
+                    <p>Consultas profesionales de tarot para guiarte en el camino de la vida. Amor, trabajo, salud y espiritualidad.</p>
+                    <div class="header-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>15+ años de experiencia</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Lecturas precisas y detalladas</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Enfoque ético y respetuoso</span>
+                        </div>
+                    </div>
+                    <a href="#contacto" class="btn">Reserva tu consulta</a>
+                </div>
+            </div>
+            <div class="header-carousel">
+                <div class="carousel-images" id="headerCarousel">
+                    <div class="carousel-image" style="background-image: url('img/tarot1.jpg')"></div>
+                    <div class="carousel-image" style="background-image: url('img/tarot2.gif')"></div>
+                    <div class="carousel-image" style="background-image: url('img/tarot3.jpg')"></div>
+                </div>
+                <div class="carousel-indicators" id="headerIndicators">
+                    <div class="indicator active" data-index="0"></div>
+                    <div class="indicator" data-index="1"></div>
+                    <div class="indicator" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Sobre Mí -->
+    <section class="about" id="sobre-mi">
+        <div class="section-title">
+            <h2>Sobre Mí</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hola, soy Robert Jose, vidente Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, aperiam corporis, unde fuga velit sit perferendis exercitationem ut repellat, dolorum libero modi facilis architecto similique tenetur commodi! Ex necessitatibus impedit amet, culpa ipsam perspiciatis adipisci voluptate odio itaque, nostrum asperiores vitae facere quisquam ducimus neque non reiciendis consequuntur qui quas.</p>
+                <p>Mi don para la videncia Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi officiis explicabo repellat iusto autem! Aliquam, sed? Perspiciatis sapiente placeat aperiam expedita est labore iusto magni, quibusdam quas excepturi non facere.</p>
+                <p>Creo firmemente que el tarot es una herramienta poderosa Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi omnis harum nam reprehenderit obcaecati?</p>
+                <a href="#servicios" class="btn">Conoce mis servicios</a>
+            </div>
+            <div class="about-image">
+                <img src="img/tarot4.jpg" alt="Robert Jose - Tarotista profesional">
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Cartas de Tarot - Carrusel -->
+    <section class="tarot-cards" id="cartas">
+        <div class="section-title">
+            <h2>Cartas de Tarot</h2>
+        </div>
+        <div class="cards-carousel-container">
+            <div class="cards-carousel" id="cardsCarousel">
+                <!-- Página 1 -->
+                <div class="cards-page">
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-crown"></i>
+                            <h3>El Mago</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Representa la manifestación, el poder personal y la habilidad para transformar la realidad. Indica que tienes todos los recursos necesarios para lograr tus objetivos.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Manifestación</span>
+                                <span class="keyword">Poder personal</span>
+                                <span class="keyword">Habilidad</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-moon"></i>
+                            <h3>La Sacerdotisa</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Simboliza la intuición, los misterios y el conocimiento oculto. Invita a confiar en tu sabiduría interior y a prestar atención a tus sueños y presentimientos.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Intuición</span>
+                                <span class="keyword">Misterio</span>
+                                <span class="keyword">Sabiduría interior</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-heart"></i>
+                            <h3>La Emperatriz</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Representa la fertilidad, la abundancia y la creatividad. Anima a conectar con la naturaleza y a nutrir tus proyectos y relaciones.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Fertilidad</span>
+                                <span class="keyword">Abundancia</span>
+                                <span class="keyword">Creatividad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Página 2 -->
+                <div class="cards-page">
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-gem"></i>
+                            <h3>El Ermitaño</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Simboliza la introspección, la búsqueda interior y la sabiduría. Sugiere un tiempo de reflexión solitaria para encontrar respuestas internas.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Introspección</span>
+                                <span class="keyword">Sabiduría</span>
+                                <span class="keyword">Reflexión</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-sync-alt"></i>
+                            <h3>La Rueda de la Fortuna</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Representa los ciclos de la vida, el destino y los giros del azar. Indica que estás en un punto de cambio donde el universo conspira a tu favor.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Ciclos</span>
+                                <span class="keyword">Destino</span>
+                                <span class="keyword">Cambio</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-balance-scale"></i>
+                            <h3>La Justicia</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Simboliza el equilibrio, la verdad y la imparcialidad. Anuncia decisiones importantes que requieren considerar todas las perspectivas.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Equilibrio</span>
+                                <span class="keyword">Verdad</span>
+                                <span class="keyword">Justicia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Página 3 -->
+                <div class="cards-page">
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-skull"></i>
+                            <h3>La Muerte</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>No representa muerte física, sino transformación y final de ciclos. Indica el fin de una etapa y el comienzo de algo nuevo y mejor.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Transformación</span>
+                                <span class="keyword">Renacimiento</span>
+                                <span class="keyword">Cambio</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-sun"></i>
+                            <h3>El Sol</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Representa la alegría, el éxito y la vitalidad. Anima a disfrutar de la vida y a confiar en que todo saldrá bien.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Alegría</span>
+                                <span class="keyword">Éxito</span>
+                                <span class="keyword">Vitalidad</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-item">
+                        <div class="card-header">
+                            <i class="fas fa-star"></i>
+                            <h3>La Estrella</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Simboliza la esperanza, la inspiración y la serenidad. Indica que hay luz al final del túnel y que tus sueños se harán realidad.</p>
+                            <div class="card-keywords">
+                                <span class="keyword">Esperanza</span>
+                                <span class="keyword">Inspiración</span>
+                                <span class="keyword">Serenidad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" id="cardsPrevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn" id="cardsNextBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios Actualizados -->
+    <section class="services" id="servicios">
+        <div class="section-title">
+            <h2>Servicios Espirituales</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h3>Rituales de Limpieza Energética</h3>
+                <p>Elimina energías negativas, bloqueos y malas vibras de tu aura y espacios vitales. Renueva tu energía para atraer prosperidad y bienestar.</p>
+                <a href="#contacto" class="btn">Reservar Ritual</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3>Venta de Amuletos y Protecciones</h3>
+                <p>Amuletos personalizados cargados con energía positiva para protección, amor, prosperidad y salud. Cada pieza es única y consagrada.</p>
+                <a href="#contacto" class="btn">Ver Catálogo</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Lectura de Tarot Profesional</h3>
+                <p>Consulta detallada de tarot para clarificar tu camino en el amor, trabajo, salud y espiritualidad. Respuestas precisas y guidance personalizado.</p>
+                <a href="#contacto" class="btn">Reservar Consulta</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contacto WhatsApp Moderno -->
+    <section class="contact" id="contacto">
+        <div class="section-title">
+            <h2>Contacto por WhatsApp</h2>
+        </div>
+        <div class="whatsapp-container">
+            <div class="whatsapp-info">
+                <h3>Comunícate directamente conmigo</h3>
+                <p>Para consultas, reservas de servicios o cualquier pregunta, contáctame a través de WhatsApp. Estoy aquí para ayudarte en tu camino espiritual.</p>
+                
+                <div class="whatsapp-features">
+                    <div class="whatsapp-feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Respuesta rápida - Normalmente respondo en minutos</span>
+                    </div>
+                    <div class="whatsapp-feature">
+                        <i class="fas fa-comments"></i>
+                        <span>Atención personalizada y confidencial</span>
+                    </div>
+                    <div class="whatsapp-feature">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Reserva de citas inmediata</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="whatsapp-card">
+                <i class="fab fa-whatsapp whatsapp-icon"></i>
+                <h3>Robert Jose Tarot</h3>
+                <p>Tarotista Profesional</p>
+                
+                <div class="qr-code">
+                    <span>Escanea el código QR<br>para contactarme</span>
+                </div>
+                
+                <div class="whatsapp-number">
+                    <i class="fas fa-phone"></i> 0424-3145550
+                </div>
+                
+                <a href="https://wa.me/584243145550?text=Hola%20Robert,%20deseo%20servicio%20por%20favor" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Deseo servicio por favor
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fas fa-star-and-crescent"></i>
+                <h1>Robert Jose Tarot</h1>
+            </div>
+            <p>Encuentra claridad y dirección en tu camino con la sabiduría del tarot.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+    <p>&copy; 2023 FelixDev. Todos los derechos reservados.</p>
+    <div class="social-links">
+        <a href="https://github.com/FelixDev0310" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="devfelix919@gmail.com" title="Gmail">
+            <i class="fab fa-google"></i> 
+        </a>
+    </div>
+</div>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Header Carousel
+        const headerCarousel = document.getElementById('headerCarousel');
+        const headerIndicators = document.querySelectorAll('.carousel-indicators .indicator');
+        let headerIndex = 0;
+        
+        function updateHeaderCarousel() {
+            headerCarousel.style.transform = `translateX(-${headerIndex * 100}%)`;
+            
+            headerIndicators.forEach((indicator, index) => {
+                if (index === headerIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+        
+        headerIndicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                headerIndex = parseInt(indicator.getAttribute('data-index'));
+                updateHeaderCarousel();
+            });
+        });
+        
+        // Cambio automático cada 5 segundos
+        setInterval(() => {
+            headerIndex = (headerIndex + 1) % headerIndicators.length;
+            updateHeaderCarousel();
+        }, 5000);
+        
+        // Carrusel de cartas
+        const cardsCarousel = document.getElementById('cardsCarousel');
+        const cardsPrevBtn = document.getElementById('cardsPrevBtn');
+        const cardsNextBtn = document.getElementById('cardsNextBtn');
+        let cardsIndex = 0;
+        const totalCardsPages = document.querySelectorAll('.cards-page').length;
+        
+        function updateCardsCarousel() {
+            cardsCarousel.style.transform = `translateX(-${cardsIndex * 100}%)`;
+        }
+        
+        cardsNextBtn.addEventListener('click', () => {
+            cardsIndex = (cardsIndex + 1) % totalCardsPages;
+            updateCardsCarousel();
+        });
+        
+        cardsPrevBtn.addEventListener('click', () => {
+            cardsIndex = (cardsIndex - 1 + totalCardsPages) % totalCardsPages;
+            updateCardsCarousel();
+        });
+        
+        // Smooth scroll para enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animación al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observar elementos para animación
+        document.querySelectorAll('.about-content, .testimonial-card, .whatsapp-container, .card-item, .service-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+        
+        // Animación de cartas cayendo - CON DURACIÓN ESPECÍFICA
+        const fallingCardsContainer = document.getElementById('fallingCards');
+        const cardIcons = ['♦', '♠', '♥', '♣', '★', '✦', '✧'];
+        
+        function createFallingCard() {
+            const card = document.createElement('div');
+            card.className = 'falling-card';
+            card.textContent = cardIcons[Math.floor(Math.random() * cardIcons.length)];
+            
+            // Posición horizontal aleatoria en toda la pantalla (0-100%)
+            const left = Math.random() * 100;
+            card.style.left = `${left}vw`;
+            
+            // Duración fija de 1 minuto (60 segundos)
+            const duration = 60;
+            const delay = Math.random() * 5;
+            
+            card.style.animationDuration = `${duration}s`;
+            card.style.animationDelay = `${delay}s`;
+            
+            fallingCardsContainer.appendChild(card);
+            
+            // Eliminar la carta después de que termine la animación
+            setTimeout(() => {
+                if (card.parentNode === fallingCardsContainer) {
+                    fallingCardsContainer.removeChild(card);
+                }
+            }, (duration + delay) * 1000);
+        }
+        
+    
+        setInterval(createFallingCard, 30000);
+        
+    
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createFallingCard, i * 2000);
+        }
+    </script>
+</body>
+</html>
