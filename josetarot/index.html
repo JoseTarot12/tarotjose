@@ -503,54 +503,305 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Testimonios */
-        .testimonials {
+      .about {
             padding: 5rem 2rem;
-            background-color: var(--purple-dark);
+            background-color: var(--blue-medium);
         }
 
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .testimonial-card {
-            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
+        .about-text {
+            flex: 1;
         }
 
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            position: relative;
+        .about-intro {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
             font-family: 'Playfair Display', serif;
+            line-height: 1.8;
+            color: var(--gray-light);
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .highlight-item {
+            background: linear-gradient(135deg, rgba(126, 87, 194, 0.1), rgba(26, 43, 77, 0.3));
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .highlight-item h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
             font-size: 1.1rem;
         }
 
-        .testimonial-text::before {
-            content: '"';
-            font-size: 4rem;
-            color: var(--gold);
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            opacity: 0.3;
+        .highlight-item p {
+            font-size: 0.95rem;
+            color: var(--gray-light);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
         }
 
-        .testimonial-author {
+        .about-services {
+            margin-top: 2rem;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .service-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+
+        .service-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .service-content h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+        }
+
+        .service-content p {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.5;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .qr-overlay {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--gold);
+        }
+
+        .qr-code-small {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .qr-code-small span {
+            color: #666;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            text-align: center;
+        }
+
+        .qr-text {
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Modal QR Mejorado */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .qr-modal.active {
+            display: flex;
+        }
+
+        .qr-modal-content {
+            background: linear-gradient(135deg, var(--blue-dark), var(--purple-dark));
+            border-radius: 15px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: slideUp 0.4s ease;
+            text-align: center;
+        }
+
+        .qr-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .qr-modal-header h3 {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        .close-qr-modal {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-qr-modal:hover {
+            color: var(--gold);
+        }
+
+        .qr-code-large {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-code-large span {
+            color: #666;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .qr-instructions {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .qr-instructions p {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-contact-info {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--gold-light);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Botón de acción QR */
+        .qr-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 8px 15px;
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .qr-action-btn:hover {
+            background: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+            
+            .qr-overlay {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about {
+                padding: 3rem 1rem;
+            }
+            
+            .service-item {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         .author-avatar {
@@ -571,7 +822,7 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Contacto WhatsApp Moderno */
+
         .contact {
             padding: 5rem 2rem;
             background: linear-gradient(135deg, var(--whatsapp-dark), #128C7E);
@@ -889,6 +1140,262 @@
                 height: 150px;
             }
         }
+
+        .payment-methods {
+            padding: 5rem 2rem;
+            background-color: var(--blue-medium);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            display: inline-block;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--purple-light), var(--gold));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .payment-method-card {
+            background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .payment-method-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .payment-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-method-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--gold-light);
+            font-family: 'Cinzel', serif;
+        }
+
+        .payment-method-card p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Colores específicos para cada método */
+        .pago-movil {
+            background: linear-gradient(135deg, var(--pago-movil-yellow), var(--pago-movil-blue), var(--pago-movil-red));
+        }
+
+        .bancolombia {
+            background: linear-gradient(135deg, var(--pago-movil-yellow), var(--pago-movil-blue), var(--pago-movil-red));
+        }
+
+        .paypal {
+            background: linear-gradient(135deg, var(--paypal-blue), var(--paypal-purple));
+        }
+
+        .zelle {
+            background: linear-gradient(135deg, var(--zelle-blue), var(--purple-medium));
+        }
+
+        /* Modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--blue-dark), var(--purple-dark));
+            border-radius: 15px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--gold);
+        }
+
+        .payment-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .payment-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .payment-field label {
+            font-weight: 500;
+            color: var(--gray-light);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .payment-input {
+            position: relative;
+        }
+
+        .payment-input input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .payment-input input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--purple-light);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--gold);
+        }
+
+        .payment-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .payment-methods {
+                padding: 3rem 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .payment-method-card {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -908,8 +1415,8 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#sobre-mi">Sobre Mí</a></li>
                 <li><a href="#cartas">Cartas de Tarot</a></li>
-                <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#pagos">Met. Pagos</a></li>
             </ul>
         </nav>
     </header>
@@ -923,7 +1430,7 @@
                     <div class="header-features">
                         <div class="feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>15+ años de experiencia</span>
+                            <span>20+ años de experiencia</span>
                         </div>
                         <div class="feature">
                             <i class="fas fa-check-circle"></i>
@@ -953,23 +1460,91 @@
     </section>
 
     <!-- Sección Sobre Mí -->
-    <section class="about" id="sobre-mi">
+     <section class="about" id="sobre-mi">
         <div class="section-title">
             <h2>Sobre Mí</h2>
         </div>
         <div class="about-content">
             <div class="about-text">
-                <p>Hola, soy Robert Jose, vidente Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, aperiam corporis, unde fuga velit sit perferendis exercitationem ut repellat, dolorum libero modi facilis architecto similique tenetur commodi! Ex necessitatibus impedit amet, culpa ipsam perspiciatis adipisci voluptate odio itaque, nostrum asperiores vitae facere quisquam ducimus neque non reiciendis consequuntur qui quas.</p>
-                <p>Mi don para la videncia Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi officiis explicabo repellat iusto autem! Aliquam, sed? Perspiciatis sapiente placeat aperiam expedita est labore iusto magni, quibusdam quas excepturi non facere.</p>
-                <p>Creo firmemente que el tarot es una herramienta poderosa Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi omnis harum nam reprehenderit obcaecati?</p>
-                <a href="#servicios" class="btn">Conoce mis servicios</a>
+                <div class="about-intro">
+                    <p><strong>Robert José: Coach Espiritual, Chamán y Vidente Astral con 22 Años de Trayectoria.</strong></p>
+                    <p>Soy Robert José, un Guía Espiritual con más de 22 años de inmersión en los mundos astral, energético y espiritual. Mi misión es facilitar tu evolución y el dominio de tu destino integrando lo ancestral y lo moderno.</p>
+                </div>
+                
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <h4>Sabiduría Chamánica</h4>
+                        <p>Conexión con la Tierra, sanación ancestral y trabajos energéticos de alta vibración.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h4>Conocimiento Esotérico</h4>
+                        <p>Formación especializada en Tarot, disciplinas espirituales y estudio profesional de la Demonología.</p>
+                    </div>
+                    <div class="highlight-item">
+                        <h4>Clarividencia Astral</h4>
+                        <p>Capacidad para navegar energías y ofrecer visiones precisas sobre las causas de tus desafíos.</p>
+                    </div>
+                </div>
+
+                <div class="about-services">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem; font-family: 'Cinzel', serif;">Mis Servicios</h3>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="service-content">
+                                <h4>Consultas Astrales y de Tarot</h4>
+                                <p>Diagnóstico y guía para amor, relaciones, finanzas, trabajo, salud y propósito de vida.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="service-content">
+                                <h4>Rituales de Transformación</h4>
+                                <p>Ceremonias personalizadas para sanación kármica, prosperidad, amor y armonización.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="service-content">
+                                <h4>Protección y Consagración</h4>
+                                <p>Amuletos personalizados y sistemas de protección contra energías negativas.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-ghost"></i>
+                            </div>
+                            <div class="service-content">
+                                <h4>Investigación Paranormal</h4>
+                                <p>Asesoría profesional sobre fenómenos inexplicables y intrusiones espirituales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#contacto" class="btn" style="margin-top: 2rem;">Conoceme</a>
             </div>
             <div class="about-image">
                 <img src="img/tarot4.jpg" alt="Robert Jose - Tarotista profesional">
+                <div class="qr-overlay">
+                    <div class="qr-code-small" id="smallQr">
+                        <img src="./img/qr.jpg" alt="qr">
+                    </div>
+                    <div>
+                        <div class="qr-text">Escanea para contacto</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    
     <!-- Sección de Cartas de Tarot - Carrusel -->
     <section class="tarot-cards" id="cartas">
         <div class="section-title">
@@ -1120,38 +1695,6 @@
         </div>
     </section>
 
-    <!-- Servicios Actualizados -->
-    <section class="services" id="servicios">
-        <div class="section-title">
-            <h2>Servicios Espirituales</h2>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-fire"></i>
-                </div>
-                <h3>Rituales de Limpieza Energética</h3>
-                <p>Elimina energías negativas, bloqueos y malas vibras de tu aura y espacios vitales. Renueva tu energía para atraer prosperidad y bienestar.</p>
-                <a href="#contacto" class="btn">Reservar Ritual</a>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <h3>Venta de Amuletos y Protecciones</h3>
-                <p>Amuletos personalizados cargados con energía positiva para protección, amor, prosperidad y salud. Cada pieza es única y consagrada.</p>
-                <a href="#contacto" class="btn">Ver Catálogo</a>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h3>Lectura de Tarot Profesional</h3>
-                <p>Consulta detallada de tarot para clarificar tu camino en el amor, trabajo, salud y espiritualidad. Respuestas precisas y guidance personalizado.</p>
-                <a href="#contacto" class="btn">Reservar Consulta</a>
-            </div>
-        </div>
-    </section>
 
 
     <!-- Contacto WhatsApp Moderno -->
@@ -1186,11 +1729,11 @@
                 <p>Tarotista Profesional</p>
                 
                 <div class="qr-code">
-                    <span>Escanea el código QR<br>para contactarme</span>
+                    <img src="./img/qr.jpg" alt="qr">
                 </div>
                 
                 <div class="whatsapp-number">
-                    <i class="fas fa-phone"></i> 0424-3145550
+                    <i class="fas fa-phone"></i> +58 04243145550
                 </div>
                 
                 <a href="https://wa.me/584243145550?text=Hola%20Robert,%20deseo%20servicio%20por%20favor" class="whatsapp-btn" target="_blank">
@@ -1200,6 +1743,177 @@
             </div>
         </div>
     </section>
+
+     <!-- Sección de Métodos de Pago -->
+    <section class="payment-methods" id="pagos">
+        <div class="section-title">
+            <h2>Métodos de Pago</h2>
+        </div>
+        <div class="payment-methods-grid">
+            <!-- Pago Móvil -->
+            <div class="payment-method-card pago-movil" id="pagoMovilBtn">
+                <div class="payment-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Pago Móvil</h3>
+                <p>Pago rápido y seguro desde tu teléfono móvil</p>
+                <span class="btn">Seleccionar</span>
+            </div>
+
+            <!-- Bancolombia -->
+            <div class="payment-method-card bancolombia" id="bancolombiaBtn">
+                <div class="payment-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3>Bancolombia</h3>
+                <p>Transferencia bancaria directa</p>
+                <span class="btn">Seleccionar</span>
+            </div>
+
+            <!-- PayPal -->
+            <div class="payment-method-card paypal" id="paypalBtn">
+                <div class="payment-icon">
+                    <i class="fab fa-paypal"></i>
+                </div>
+                <h3>PayPal</h3>
+                <p>Pago internacional seguro</p>
+                <span class="btn">Seleccionar</span>
+            </div>
+
+            <!-- Zelle -->
+            <div class="payment-method-card zelle" id="zelleBtn">
+                <div class="payment-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Zelle</h3>
+                <p>Transferencia rápida entre bancos</p>
+                <span class="btn">Seleccionar</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Pago Móvil -->
+    <div class="modal" id="pagoMovilModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Pago Móvil</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="payment-info">
+                <div class="payment-field">
+                    <label for="cedula">Cédula</label>
+                    <div class="payment-input">
+                        <input type="text" id="cedula" value="12345678" readonly>
+                        <button class="copy-btn" data-target="cedula">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-field">
+                    <label for="banco">Banco</label>
+                    <div class="payment-input">
+                        <input type="text" id="banco" value="0102-Banco de Venezuela" readonly>
+                        <button class="copy-btn" data-target="banco">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-field">
+                    <label for="telefono">Teléfono</label>
+                    <div class="payment-input">
+                        <input type="text" id="telefono" value="0424-3145550" readonly>
+                        <button class="copy-btn" data-target="telefono">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-note">
+                    <p><i class="fas fa-info-circle"></i> Realiza el pago móvil con los datos proporcionados y envía el comprobante por WhatsApp.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bancolombia -->
+    <div class="modal" id="bancolombiaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bancolombia</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="payment-info">
+                <div class="payment-field">
+                    <label for="tipoCuenta">Tipo de Cuenta</label>
+                    <div class="payment-input">
+                        <input type="text" id="tipoCuenta" value="Ahorros" readonly>
+                        <button class="copy-btn" data-target="tipoCuenta">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-field">
+                    <label for="numeroCuenta">Número de Cuenta</label>
+                    <div class="payment-input">
+                        <input type="text" id="numeroCuenta" value="123-456789-01" readonly>
+                        <button class="copy-btn" data-target="numeroCuenta">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-field">
+                    <label for="titularCuenta">Titular de la Cuenta</label>
+                    <div class="payment-input">
+                        <input type="text" id="titularCuenta" value="Robert Jose" readonly>
+                        <button class="copy-btn" data-target="titularCuenta">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-note">
+                    <p><i class="fas fa-info-circle"></i> Realiza la transferencia con los datos proporcionados y envía el comprobante por WhatsApp.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal PayPal -->
+    <div class="modal" id="paypalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>PayPal</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="payment-info">
+                <div class="payment-field">
+                    <label for="correoPaypal">Correo Electrónico</label>
+                    <div class="payment-input">
+                        <input type="text" id="correoPaypal" value="robertarot@example.com" readonly>
+                        <button class="copy-btn" data-target="correoPaypal">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-note">
+                    <p><i class="fas fa-info-circle"></i> Realiza el pago a través de PayPal usando el correo electrónico proporcionado y envía el comprobante por WhatsApp.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Zelle -->
+    <div class="modal" id="zelleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Zelle</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="payment-info">
+                <div class="payment-field">
+                    <label for="correoZelle">Correo Electrónico</label>
+                    <div class="payment-input">
+                        <input type="text" id="correoZelle" value="robertarot@example.com" readonly>
+                        <button class="copy-btn" data-target="correoZelle">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-field">
+                    <label for="telefonoZelle">Teléfono</label>
+                    <div class="payment-input">
+                        <input type="text" id="telefonoZelle" value="+1 (555) 123-4567" readonly>
+                        <button class="copy-btn" data-target="telefonoZelle">Copiar</button>
+                    </div>
+                </div>
+                <div class="payment-note">
+                    <p><i class="fas fa-info-circle"></i> Realiza la transferencia usando Zelle con el correo o teléfono proporcionado y envía el comprobante por WhatsApp.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1218,6 +1932,9 @@
     <div class="social-links">
         <a href="https://github.com/FelixDev0310" target="_blank" title="GitHub">
             <i class="fab fa-github"></i>
+        </a>
+        <a href="devfelix919@gmail.com" title="Gmail">
+            <i class="fab fa-google"></i> 
         </a>
     </div>
 </div>
@@ -1368,7 +2085,94 @@
         for (let i = 0; i < 15; i++) {
             setTimeout(createFallingCard, i * 2000);
         }
+
+         // Funcionalidad de los modales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Botones para abrir modales
+            const pagoMovilBtn = document.getElementById('pagoMovilBtn');
+            const bancolombiaBtn = document.getElementById('bancolombiaBtn');
+            const paypalBtn = document.getElementById('paypalBtn');
+            const zelleBtn = document.getElementById('zelleBtn');
+            
+            // Modales
+            const pagoMovilModal = document.getElementById('pagoMovilModal');
+            const bancolombiaModal = document.getElementById('bancolombiaModal');
+            const paypalModal = document.getElementById('paypalModal');
+            const zelleModal = document.getElementById('zelleModal');
+            
+            // Botones para cerrar modales
+            const closeButtons = document.querySelectorAll('.close-modal');
+            
+            // Abrir modales
+            pagoMovilBtn.addEventListener('click', () => {
+                pagoMovilModal.classList.add('active');
+            });
+            
+            bancolombiaBtn.addEventListener('click', () => {
+                bancolombiaModal.classList.add('active');
+            });
+            
+            paypalBtn.addEventListener('click', () => {
+                paypalModal.classList.add('active');
+            });
+            
+            zelleBtn.addEventListener('click', () => {
+                zelleModal.classList.add('active');
+            });
+            
+            // Cerrar modales
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.classList.remove('active');
+                });
+            });
+            
+            // Cerrar modal al hacer clic fuera del contenido
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Funcionalidad de copiar
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    
+                    // Seleccionar el texto
+                    input.select();
+                    input.setSelectionRange(0, 99999); // Para dispositivos móviles
+                    
+                    // Copiar al portapapeles
+                    navigator.clipboard.writeText(input.value)
+                        .then(() => {
+                            // Cambiar temporalmente el texto del botón
+                            const originalText = this.textContent;
+                            this.textContent = '¡Copiado!';
+                            
+                            setTimeout(() => {
+                                this.textContent = originalText;
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Error al copiar: ', err);
+                        });
+                });
+            });
+            
+            // Cerrar con tecla Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                }
+            });
+        });
     </script>
 </body>
-
 </html>
