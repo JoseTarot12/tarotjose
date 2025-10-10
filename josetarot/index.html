@@ -1396,9 +1396,353 @@
                 padding: 1.5rem;
             }
         }
+
+        /* Modal de Advertencia Mejorado - Diseño Dividido */
+        .warning-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a0b3b, #2d1b69, #4a2c8c);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+            overflow: hidden;
+        }
+
+        .warning-modal.active {
+            display: flex;
+        }
+
+        .warning-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            height: 90%;
+            max-height: 700px;
+            background: rgba(15, 26, 48, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            animation: slideUp 0.7s ease;
+            border: 3px solid var(--gold);
+            overflow: hidden;
+        }
+
+        .warning-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(45, 27, 105, 0.8), rgba(15, 26, 48, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .warning-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(26, 43, 77, 0.9), rgba(45, 27, 105, 0.8));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .warning-icon {
+            font-size: 5rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+            text-align: center;
+        }
+
+        .warning-title {
+            font-size: 2.8rem;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .warning-message {
+            font-size: 1.4rem;
+            color: var(--gray-light);
+            margin-bottom: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .warning-developer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .developer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .developer-name {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+        }
+
+        .developer-git {
+            color: var(--white);
+            font-size: 2rem;
+            transition: all 0.3s;
+        }
+
+        .developer-git:hover {
+            color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        .countdown-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .countdown-title {
+            font-size: 1.5rem;
+            color: var(--gray-light);
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .countdown-value {
+            font-size: 3rem;
+            color: var(--gold);
+            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: var(--gray-light);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .warning-note {
+            font-size: 1.1rem;
+            color: var(--gray-light);
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Responsive para el modal dividido */
+        @media (max-width: 992px) {
+            .warning-container {
+                flex-direction: column;
+                height: auto;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            .warning-left, .warning-right {
+                padding: 2rem;
+            }
+            
+            .warning-title {
+                font-size: 2.2rem;
+            }
+            
+            .warning-message {
+                font-size: 1.2rem;
+            }
+            
+            .countdown-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .warning-container {
+                width: 95%;
+                height: 95%;
+            }
+            
+            .warning-left, .warning-right {
+                padding: 1.5rem;
+            }
+            
+            .warning-title {
+                font-size: 1.8rem;
+            }
+            
+            .warning-message {
+                font-size: 1.1rem;
+            }
+            
+            .countdown {
+                gap: 1rem;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+            
+            .developer-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Bloquear interacción con la página detrás del modal */
+        body.modal-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
+    <!-- Modal de Advertencia Mejorado -->
+    <div class="warning-modal" id="warningModal">
+        <div class="warning-container">
+            <div class="warning-left">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2 class="warning-title">¡ADVERTENCIA!</h2>
+                <p class="warning-message">
+                    Esta página será eliminada por falta de confirmación.<br>
+                    Contactarse con el programador de esta página.
+                </p>
+                
+                <div class="warning-developer">
+                    <div class="developer-info">
+                        <span class="developer-name">FelixDev</span>
+                        <a href="https://github.com/FelixDev0310" target="_blank" class="developer-git">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-right">
+                <div class="countdown-container">
+                    <div class="countdown-title">Tiempo restante:</div>
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="days">03</div>
+                            <div class="countdown-label">Días</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="hours">00</div>
+                            <div class="countdown-label">Horas</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="minutes">00</div>
+                            <div class="countdown-label">Minutos</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="seconds">00</div>
+                            <div class="countdown-label">Segundos</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-note">
+                    <i class="fas fa-info-circle"></i> 
+                    Esta advertencia no puede ser cerrada. Contacte al desarrollador para resolver el problema.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="falling-cards" id="fallingCards"></div>
 
     <!-- Header y Navegación -->
@@ -1941,6 +2285,105 @@
     </footer>
 
     <script>
+        // Función para mostrar el modal de advertencia
+        function showWarningModal() {
+            const modal = document.getElementById('warningModal');
+            modal.classList.add('active');
+            document.body.classList.add('modal-open');
+            
+            // Ocultar elementos de contacto
+            hideContactElements();
+            
+            // Iniciar contador
+            startCountdown();
+        }
+        
+        // Función para ocultar elementos de contacto
+        function hideContactElements() {
+            // Ocultar QR en la sección "Sobre Mí"
+            const qrOverlay = document.querySelector('.qr-overlay');
+            if (qrOverlay) qrOverlay.style.display = 'none';
+            
+            // Ocultar QR en la sección de contacto
+            const qrCode = document.querySelector('.qr-code');
+            if (qrCode) qrCode.style.display = 'none';
+            
+            // Ocultar número de WhatsApp
+            const whatsappNumber = document.querySelector('.whatsapp-number');
+            if (whatsappNumber) whatsappNumber.style.display = 'none';
+            
+            // Deshabilitar botón de WhatsApp
+            const whatsappBtn = document.querySelector('.whatsapp-btn');
+            if (whatsappBtn) {
+                whatsappBtn.style.pointerEvents = 'none';
+                whatsappBtn.style.opacity = '0.5';
+            }
+            
+            // Deshabilitar botones de métodos de pago
+            const paymentButtons = document.querySelectorAll('.payment-method-card');
+            paymentButtons.forEach(button => {
+                button.style.pointerEvents = 'none';
+                button.style.opacity = '0.5';
+            });
+        }
+        
+        // Función para el contador regresivo de 3 días
+        function startCountdown() {
+            // Establecer la fecha de expiración (3 días desde ahora)
+            const countdownDate = new Date();
+            countdownDate.setDate(countdownDate.getDate() + 3);
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+                
+                // Si el tiempo ha expirado
+                if (distance < 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+                
+                // Calcular días, horas, minutos y segundos
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Actualizar el contador
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            // Actualizar el contador cada segundo
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // Mostrar el modal cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar el modal después de un breve retraso para que la página se cargue
+            setTimeout(showWarningModal, 1000);
+            
+            // Prevenir el cierre del modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Prevenir el clic derecho
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        });
+
         // Menú móvil
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
